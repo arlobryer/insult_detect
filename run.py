@@ -7,14 +7,20 @@ import classify
 wordfeat = dat_read.features()
 
 def comment_reader(f):
-    comment = csv.reader(open(f, 'r'))
-    return comment    
+    comment = csv.reader(open(f, 'rb'))
+    return comment
+
+def output_writer(f):
+    write = csv.writer(open(f, 'wb'))
+    return write
 
 def extract(tok):
     return dat_read.comment_feat(tok, wordfeat.get_tlist(50))
 
 if __name__ == "__main__":
     in_file = sys.argv[1]
+    if len(sys.argv) > 2:
+        out_file = sys.argv[2]
     c = comment_reader(in_file)
     lines = list(c)
     i = 0
@@ -43,21 +49,18 @@ if __name__ == "__main__":
         toks += dat_read.comment(r).tokenise()
         if i == c1:
             break
-    print 'These are the tokens we\'re using'
-    print toks
     for t in toks:
         trainset = classify.tset(extract, toks)
-    
-    print 'This is the training set: '
-    print trainset
     classif = classify.trainclassifier(trainset)
     print classif.labels()
     print classif.most_informative_features()
     t = int(raw_input('How many should we classify? '))
     i = 0
+    w = output_writer(out_file)
     for r in lines[1:]:
         i += 1
-        print str(i) + ' ' + str(classif.prob_classify(extract(dat_read.comment(r).get_raw_lc())).prob(True))
+        p_true = classif.prob_classify(extract(dat_read.comment(r).get_raw_lc())).prob(True)
+        w.writerow([p_true, dat_read.comment(r).content])
         if i == t:
             break
         
