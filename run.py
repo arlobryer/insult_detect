@@ -4,8 +4,6 @@ import sys
 import csv
 import classify
 
-wordfeat = dat_read.features()
-
 def comment_reader(f):
     comment = csv.reader(open(f, 'rb'))
     return comment
@@ -15,16 +13,23 @@ def output_writer(f):
     return write
 
 def extract(tok):
-    return dat_read.comment_feat(tok, wordfeat.get_tlist(50))
+    return dat_read.comment_feat(tok, wordfeat.get_tlist(feat_list_length))
 
 if __name__ == "__main__":
+    if len(sys.argv) < 4:
+        print 'Syntax is: ./run training_dset.csv analysis_dset.csv output.csv'
+        sys.exit()
     train_file = sys.argv[1]
-    if len(sys.argv) > 3:
-        in_file = sys.argv[2]
-        out_file = sys.argv[3]
-    #This bit should be improved
+    in_file = sys.argv[2]
+    out_file = sys.argv[3]
+    #initialising the training file, analysis file,
+    #output file, wordfeatures object and how many features to take
     c = comment_reader(train_file)
     test = comment_reader(in_file)
+    w = output_writer(out_file)
+    wordfeat = dat_read.features()
+    feat_list_length = 100
+    
     lines = list(c)
     i = 0
     print 'There are ' + str(len(lines)) + ' comments.'
@@ -39,12 +44,11 @@ if __name__ == "__main__":
         if i == tot:
             break
     print 'This is the word feature set:'
-    print wordfeat.get_tlist(50)
+    print wordfeat.get_tlist(feat_list_length)
     
-    #extract features from each comment
+    #extract features from each comment in training file
     c1 = int(raw_input('How many comments should we feat extract on? '))
     print 'There are : ' + str(wordfeat.get_freq().B()) + ' word features.'
-    x = int(raw_input('Truncate at (int)?'))
     i = 0
     toks = []
     for r in lines[1:]:
@@ -63,7 +67,6 @@ if __name__ == "__main__":
     print 'There are ' + str(len(test_lines)) + ' analysis comments.'
     t = int(raw_input('How many should we classify? '))
     i = 0
-    w = output_writer(out_file)
     for r in test_lines[1:]:
         i += 1
         p_true = classif.prob_classify(extract(dat_read.comment(r).get_raw_lc())).prob(True)

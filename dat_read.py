@@ -2,7 +2,6 @@ import nltk
 import datetime
 
 def get_words(com):
-    # sent = nltk.sent_tokenize(com)
     w = nltk.word_tokenize(com)
     w = nltk.pos_tag(w)
     #maybe remove some of the non words in the list?

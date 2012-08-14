@@ -1,6 +1,5 @@
 import nltk
-#We will use the nltk NaiveBayesClassifer first
-#pass the whole file of comments to coms
+#We will use the nltk NaiveBayesClassifer 
 def tset(extractor, tok):
     """function wrapping the apply_feature function. Should pass a
     feature extracting function which returns a featureset - dict mapping features to
