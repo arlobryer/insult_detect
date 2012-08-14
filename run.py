@@ -18,17 +18,20 @@ def extract(tok):
     return dat_read.comment_feat(tok, wordfeat.get_tlist(50))
 
 if __name__ == "__main__":
-    in_file = sys.argv[1]
-    if len(sys.argv) > 2:
-        out_file = sys.argv[2]
-    c = comment_reader(in_file)
+    train_file = sys.argv[1]
+    if len(sys.argv) > 3:
+        in_file = sys.argv[2]
+        out_file = sys.argv[3]
+    #This bit should be improved
+    c = comment_reader(train_file)
+    test = comment_reader(in_file)
     lines = list(c)
     i = 0
     print 'There are ' + str(len(lines)) + ' comments.'
     tot = int(raw_input('How many should we analyse for potential words? '))
     #Construct the word feature set
     for r in lines[1:]:
-        post = dat_read.comment(r)
+        post = dat_read.comment(r, train = True)
         wordfeat(post)
         i+=1
         if i%10 == 0:
@@ -46,18 +49,22 @@ if __name__ == "__main__":
     toks = []
     for r in lines[1:]:
         i+=1
-        toks += dat_read.comment(r).tokenise()
+        toks += dat_read.comment(r, train = True).tokenise()
         if i == c1:
             break
     for t in toks:
         trainset = classify.tset(extract, toks)
     classif = classify.trainclassifier(trainset)
-    print classif.labels()
+    print 'These are the most informative features:'
     print classif.most_informative_features()
+    print '*'*8
+    print '*'*8
+    test_lines = list(test)
+    print 'There are ' + str(len(test_lines)) + ' analysis comments.'
     t = int(raw_input('How many should we classify? '))
     i = 0
     w = output_writer(out_file)
-    for r in lines[1:]:
+    for r in test_lines[1:]:
         i += 1
         p_true = classif.prob_classify(extract(dat_read.comment(r).get_raw_lc())).prob(True)
         w.writerow([p_true, dat_read.comment(r).content])

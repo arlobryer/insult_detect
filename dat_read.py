@@ -26,6 +26,17 @@ def comment_feat(tok, w_feat = None):
     #get the date in later
     return features
 
+def make_date(da):
+    date = None
+    if da!='':
+      y = int(da[:4])
+      m = int(da[4:6])
+      d = int(da[6:8])
+      h = int(da[8:10])
+      dt = datetime.date(y, m, d)
+      date = (dt.weekday(), h)
+    return date
+
 class features:
     def __init__(self):
         self.freq = nltk.FreqDist()
@@ -38,20 +49,16 @@ class features:
     def get_tlist(self, trunc):
         return self.freq.keys()[0:trunc]
 
-
 class comment:
-    def __init__(self, com):
-        self.insult = com[0]
-        if com[1]:
-            y = int(com[1][:4])
-            m = int(com[1][4:6])
-            d = int(com[1][6:8])
-            h = int(com[1][8:10])
-            dt = datetime.date(y, m, d)
-            self.date = (dt.weekday(), h)
+    def __init__(self, com, train = None):
+        if train == True:
+            self.insult = com[0]
+            self.date = make_date(com[1])
+            self.content = com[2]
         else:
-            self.date = None
-        self.content = com[2]
+            self.insult = None
+            self.date = make_date(com[0])
+            self.content = com[1]
     def __str__(self):
         return 'Is insult: ' + self.insult + '\n'\
                'Date: ' + str(self.date) + '\n'\
