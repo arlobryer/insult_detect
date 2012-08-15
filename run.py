@@ -13,7 +13,7 @@ def output_writer(f):
     return write
 
 def extract(tok):
-    return dat_read.comment_feat(tok, wordfeat.get_tlist(feat_list_length))
+    return dat_read.comment_feat(tok, wordfeat.get_list())
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:
@@ -44,7 +44,7 @@ if __name__ == "__main__":
         if i == tot:
             break
     print 'This is the word feature set:'
-    print wordfeat.get_tlist(feat_list_length)
+    print wordfeat.get_list()
     
     #extract features from each comment in training file
     c1 = int(raw_input('How many comments should we feat extract on? '))
