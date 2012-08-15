@@ -20,7 +20,7 @@ def get_wlist(w_list):
 def comment_feat(tok, w_feat = None):
     features = {}
     for w in w_feat:
-        features[('contains-word(%s)' %w[0])] = w[0] in tok
+        features[('contains-word(%s)' %w[0])] = w[0] in tok.get_raw_lc()
     # features['date'] = com.get_date()
     #get the date in later
     return features
@@ -59,7 +59,7 @@ class comment:
             self.date = make_date(com[0])
             self.content = com[1]
     def __str__(self):
-        return 'Is insult: ' + self.insult + '\n'\
+        return 'Is insult: ' + str(self.insult) + '\n'\
                'Date: ' + str(self.date) + '\n'\
                'Content: ' + self.content
     def wlist(self):
@@ -72,3 +72,5 @@ class comment:
         return ([w.lower() for w in nltk.word_tokenize(self.get_content())])
     def tokenise(self):
         return([[self.get_raw_lc(), bool(int(self.insult))]])
+    def tokenise_com(self):
+        return([[self, bool(int(self.insult))]])

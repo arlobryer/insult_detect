@@ -53,11 +53,10 @@ if __name__ == "__main__":
     toks = []
     for r in lines[1:]:
         i+=1
-        toks += dat_read.comment(r, train = True).tokenise()
+        toks += dat_read.comment(r, train = True).tokenise_com()
         if i == c1:
             break
-    for t in toks:
-        trainset = classify.tset(extract, toks)
+    trainset = classify.tset(extract, toks)
     classif = classify.trainclassifier(trainset)
     print 'These are the most informative features:'
     print classif.most_informative_features()
@@ -69,7 +68,7 @@ if __name__ == "__main__":
     i = 0
     for r in test_lines[1:]:
         i += 1
-        p_true = classif.prob_classify(extract(dat_read.comment(r).get_raw_lc())).prob(True)
+        p_true = classif.prob_classify(extract(dat_read.comment(r))).prob(True)
         w.writerow([p_true, dat_read.comment(r).content])
         if i == t:
             break
