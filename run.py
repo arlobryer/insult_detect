@@ -40,7 +40,7 @@ if __name__ == "__main__":
         wordfeat(post)
         i+=1
         if i%10 == 0:
-            print i
+            print 'Analysing words...' + str(i)
         if i == tot:
             break
     print 'This is the word feature set:'
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     
     #extract features from each comment in training file
     c1 = int(raw_input('How many comments should we feat extract on? '))
-    print 'There are : ' + str(wordfeat.get_freq().B()) + ' word features.'
+    print 'There are ' + str(wordfeat.get_freq().B()) + ' word features.'
     i = 0
     toks = []
     for r in lines[1:]:
