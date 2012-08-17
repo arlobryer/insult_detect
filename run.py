@@ -70,7 +70,7 @@ if __name__ == "__main__":
         i += 1
         if i%10 == 0:
             print 'Classifying...' + str(i)
-       p_true = classif.prob_classify(extract(dat_read.comment(r))).prob(True)
+        p_true = classif.prob_classify(extract(dat_read.comment(r))).prob(True)
         w.writerow([p_true, dat_read.comment(r).content])
         if i == t:
             break
