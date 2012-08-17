@@ -40,7 +40,7 @@ if __name__ == "__main__":
         wordfeat(post)
         i+=1
         if i%10 == 0:
-            print i
+            print 'Analysing words...' + str(i)
         if i == tot:
             break
     print 'This is the word feature set:'
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     
     #extract features from each comment in training file
     c1 = int(raw_input('How many comments should we feat extract on? '))
-    print 'There are : ' + str(wordfeat.get_freq().B()) + ' word features.'
+    print 'There are ' + str(wordfeat.get_freq().B()) + ' word features.'
     i = 0
     toks = []
     for r in lines[1:]:
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         if i == c1:
             break
     trainset = classify.tset(extract, toks)
-    classif = classify.trainclassifier(trainset)
+    classif = classify.NBCtrain(trainset)
     print 'These are the most informative features:'
     print classif.most_informative_features()
     print '*'*8
@@ -68,8 +68,10 @@ if __name__ == "__main__":
     i = 0
     for r in test_lines[1:]:
         i += 1
-        p_true = classif.prob_classify(extract(dat_read.comment(r))).prob(True)
+        if i%10 == 0:
+            print 'Classifying...' + str(i)
+       p_true = classif.prob_classify(extract(dat_read.comment(r))).prob(True)
         w.writerow([p_true, dat_read.comment(r).content])
         if i == t:
             break
-        
+    print 'Done. Output is at: ' + out_file
