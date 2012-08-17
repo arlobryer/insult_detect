@@ -37,8 +37,7 @@ def NBCtrain(labeled_featuresets, estimator=nltk.ELEProbDist):
             feature_values[fname].add(fval) 
             # Keep a list of all feature names. 
             fnames.add(fname)
-        if i % 10 == 0:
-            print 'At featureset...' + str(i)
+        print 'At featureset...' + str(i)
         i+=1
    
     # If a feature didn't have a value given for an instance, then 
