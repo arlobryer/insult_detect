@@ -56,8 +56,7 @@ if __name__ == "__main__":
         toks += dat_read.comment(r, train = True).tokenise()
         if i == c1:
             break
-    for t in toks:
-        trainset = classify.tset(extract, toks)
+    trainset = classify.tset(extract, toks)
     classif = classify.NBCtrain(trainset)
     print 'These are the most informative features:'
     print classif.most_informative_features()
@@ -69,8 +68,10 @@ if __name__ == "__main__":
     i = 0
     for r in test_lines[1:]:
         i += 1
+        if i%10 == 0:
+            print 'Classifying...' + str(i)
         p_true = classif.prob_classify(extract(dat_read.comment(r).get_raw_lc())).prob(True)
         w.writerow([p_true, dat_read.comment(r).content])
         if i == t:
             break
-        
+    print 'Done. Output is at: ' + out_file
