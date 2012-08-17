@@ -58,7 +58,7 @@ if __name__ == "__main__":
             break
     for t in toks:
         trainset = classify.tset(extract, toks)
-    classif = classify.trainclassifier(trainset)
+    classif = classify.NBCtrain(trainset)
     print 'These are the most informative features:'
     print classif.most_informative_features()
     print '*'*8
