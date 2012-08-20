@@ -1,21 +1,6 @@
 import nltk
+import text_extract as te
 import datetime
-
-def get_words(com):
-    w = nltk.word_tokenize(com)
-    w = nltk.pos_tag(w)
-    #maybe remove some of the non words in the list?
-    wanted = ['PRP$', 'PRP', 'NN', 'VBP', 'ADJ', 'MOD', 'UH', '!']
-    out = []
-    for t in w:
-        if (t[1] in wanted):
-            out.append(t)
-    return out
-
-def get_wlist(w_list):
-    wordlist = [w[0].lower() for w in w_list]
-    w_type_list = nltk.FreqDist(nltk.pos_tag(wordlist))
-    return w_type_list
 
 def comment_feat(tok, w_feat = None):
     raw = tok.get_raw_lc()
@@ -39,7 +24,7 @@ class features:
     def __init__(self):
         self.freq = nltk.FreqDist()
     def __call__(self, com):
-        self.freq.update(get_wlist(com.wlist()))
+        self.freq.update(te.get_wlist(com.wlist()))
     def get_freq(self):
         return self.freq
     def get_list(self):
@@ -62,7 +47,7 @@ class comment:
                'Date: ' + str(self.date) + '\n'\
                'Content: ' + self.content
     def wlist(self):
-        return get_words(self.content)
+        return te.get_words(self.content)
     def get_date(self):
         return self.date
     def get_content(self):
