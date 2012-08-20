@@ -57,7 +57,7 @@ if __name__ == "__main__":
         if i == c1:
             break
     trainset = classify.tset(extract, toks)
-    classif = classify.NBCtrain(trainset)
+    classif = classify.trainclassifier(trainset)
     print 'These are the most informative features:'
     print classif.most_informative_features()
     print '*'*8
