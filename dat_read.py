@@ -19,6 +19,7 @@ def get_wlist(w_list):
 
 def comment_feat(tok, w_feat = None):
     raw = tok.get_raw_lc()
+    features = {}
     for w in w_feat:
         features[('contains-word(%s)' %w[0])] = w[0] in raw
     return features
