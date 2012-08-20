@@ -37,14 +37,15 @@ if __name__ == "__main__":
     #Construct the word feature set
     for r in lines[1:]:
         post = dat_read.comment(r, train = True)
+        # print post
         wordfeat(post)
         i+=1
         if i%10 == 0:
             print 'Analysing words...' + str(i)
         if i == tot:
             break
-    print 'This is the word feature set:'
-    print wordfeat.get_list()
+    # print 'This is the word feature set:'
+    # print wordfeat.get_list()
     
     #extract features from each comment in training file
     c1 = int(raw_input('How many comments should we feat extract on? '))
@@ -54,9 +55,14 @@ if __name__ == "__main__":
     for r in lines[1:]:
         i+=1
         toks += dat_read.comment(r, train = True).tokenise_com()
+        if i%10 == 0:
+            print 'Tokenising...' + str(i)
         if i == c1:
             break
     trainset = classify.tset(extract, toks)
+    # print 'This is the training set:'
+    # print trainset
+    print 'Training the classifier...this could take some time.'
     classif = classify.trainclassifier(trainset)
     print 'These are the most informative features:'
     print classif.most_informative_features()

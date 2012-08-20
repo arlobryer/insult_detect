@@ -18,12 +18,9 @@ def get_wlist(w_list):
     return w_type_list
 
 def comment_feat(tok, w_feat = None):
-    features = {}
     raw = tok.get_raw_lc()
     for w in w_feat:
         features[('contains-word(%s)' %w[0])] = w[0] in raw
-    # features['date'] = com.get_date()
-    #get the date in later
     return features
 
 def make_date(da):
