@@ -28,7 +28,6 @@ if __name__ == "__main__":
     test = comment_reader(in_file)
     w = output_writer(out_file)
     wordfeat = dat_read.features()
-    feat_list_length = 100
     
     lines = list(c)
     i = 0
@@ -63,7 +62,11 @@ if __name__ == "__main__":
     # print 'This is the training set:'
     # print trainset
     print 'Training the classifier...this could take some time.'
-    classif = classify.trainclassifier(trainset)
+    prog = raw_input('Would you like to see the progress (y/n)?')
+    if prog == 'y':
+        classif = classify.NBCtrain(trainset)
+    else:
+        classif = classify.trainclassifier(trainset)
     print 'These are the most informative features:'
     print classif.most_informative_features()
     print '*'*8
