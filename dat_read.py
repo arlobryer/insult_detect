@@ -39,7 +39,12 @@ class features:
 
 class comment:
     def __init__(self, com, train = None):
+        """The initilisation of a comment object.
+        All information is stored raw out of the csv. Any cleaning can
+        be done afterwards (or with access methods)."""
         if train == True:
+            """If the commnent object is from the training dataset,
+            add that information"""
             self.insult = com[0]
             self.date = make_date(com[1])
             self.content = com[2]
@@ -51,8 +56,9 @@ class comment:
         return 'Is insult: ' + str(self.insult) + '\n'\
                'Date: ' + str(self.date) + '\n'\
                'Content: ' + self.content
+    #Some access methods
     def wlist(self):
-        return te.get_words(self.content)
+        return te.info_extract(self.get_content())
     def get_date(self):
         return self.date
     def get_content(self):
