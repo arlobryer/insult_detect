@@ -13,6 +13,8 @@ def comment_feat(tok, w_feat = None):
     return features
 
 def make_date(da):
+    """Function to extract the date and time
+    from the comment."""
     date = None
     if da!='':
       y = int(da[:4])
