@@ -1,4 +1,6 @@
 import nltk
+from nltk.classify import megam
+megam.config_megam('/Users/arlogb/ext_sources/megam_0.92/')
 #We will use the nltk NaiveBayesClassifer 
 def tset(extractor, tok):
     """function wrapping the apply_feature function. Should pass a
@@ -67,3 +69,7 @@ def NBCtrain(labeled_featuresets, estimator=nltk.ELEProbDist):
         feature_probdist[label,fname] = probdist 
                  
     return nltk.NaiveBayesClassifier(label_probdist, feature_probdist)
+
+#Add code for a maxent classifier
+def train_maxent(trainset):
+    return nltk.MaxentClassifier.train(trainset, algorithm='megam')

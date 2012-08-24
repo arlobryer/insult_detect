@@ -62,13 +62,8 @@ if __name__ == "__main__":
     # print 'This is the training set:'
     # print trainset
     print 'Training the classifier...this could take some time.'
-    prog = raw_input('Would you like to see the progress (y/n)?')
-    if prog == 'y':
-        classif = classify.NBCtrain(trainset)
-    else:
-        classif = classify.trainclassifier(trainset)
-    print 'These are the most informative features:'
-    print classif.most_informative_features()
+    # prog = raw_input('Would you like to see the progress (y/n)?')
+    classif = classify.train_maxent(trainset)
     print '*'*8
     print '*'*8
     test_lines = list(test)
