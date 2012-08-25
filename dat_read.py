@@ -25,9 +25,15 @@ def make_date(da):
 
 class features:
     def __init__(self):
+        #freq of all the words
         self.freq = nltk.FreqDist()
+        #freq of words by class (insult/not insult)
+        self.label_freq = nltk.ConditionalFreqDist()
     def __call__(self, com):
+        #update the dist of all words
         self.freq.update(te.get_wlist(com.wlist()))
+        #update the conditional dists
+        self.label_freq[com.is_insult()].update(te.get_wlist(com.wlist()))
     def get_freq(self):
         return self.freq
     def get_list(self):

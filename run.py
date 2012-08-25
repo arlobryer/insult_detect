@@ -31,7 +31,7 @@ if __name__ == "__main__":
     
     lines = list(c)
     i = 0
-    print 'There are ' + str(len(lines)) + ' comments.'
+    print 'There are ' + str(len(lines)) + ' training comments.'
     tot = int(raw_input('How many should we analyse for potential words? '))
     #Construct the word feature set
     for r in lines[1:]:
