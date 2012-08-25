@@ -3,6 +3,7 @@ import dat_read
 import sys
 import csv
 import classify
+import metrics
 
 def comment_reader(f):
     comment = csv.reader(open(f, 'rb'))

@@ -36,6 +36,8 @@ class features:
         self.label_freq[com.is_insult()].update(te.get_wlist(com.wlist()))
     def get_freq(self):
         return self.freq
+    def get_lfreq(self):
+        return self.label_freq
     def get_list(self):
         """Return a list ordered in decreasing frequency"""
         #seems to return the same thing as .samples()
