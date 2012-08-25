@@ -29,8 +29,15 @@ def get_wtype_list(w_list):
     w_type_list = nltk.FreqDist(nltk.pos_tag(wordlist))
     return w_type_list
 
-#http://nltk.googlecode.com/svn/trunk/doc/book/ch07.html
 
+def get_nbest_words(w_scores, n):
+    nbest = sorted(w_scores.iteritems(), key = lambda (word, score):score,
+                  reverse = True)[0:n]
+    nbest_words = set(word for word, score in nbest)
+    return nbest_words
+
+
+#http://nltk.googlecode.com/svn/trunk/doc/book/ch07.html
 def info_extract(com):
     w = nltk.sent_tokenize(com)
     w = [nltk.word_tokenize(sent) for sent in w]

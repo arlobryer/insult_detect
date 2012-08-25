@@ -29,6 +29,8 @@ class features:
         self.freq = nltk.FreqDist()
         #freq of words by class (insult/not insult)
         self.label_freq = nltk.ConditionalFreqDist()
+    def __str__(self):
+        return str(self.freq.keys())
     def __call__(self, com):
         #update the dist of all words
         self.freq.update(te.get_wlist(com.wlist()))
@@ -44,6 +46,8 @@ class features:
         return self.freq.keys()
     def get_tlist(self, trunc):
         return self.freq.keys()[0:trunc]
+    def set_freq(self, s):
+        self.freq = nltk.FreqDist(w for w in s)
 
 class comment:
     def __init__(self, com, train = None):

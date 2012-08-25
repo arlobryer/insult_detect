@@ -4,6 +4,7 @@ import sys
 import csv
 import classify
 import metrics
+import text_extract as te
 
 def comment_reader(f):
     comment = csv.reader(open(f, 'rb'))
@@ -47,6 +48,13 @@ if __name__ == "__main__":
     # print 'This is the word feature set:'
     # print wordfeat.get_list()
     
+    # print metrics.word_score(wordfeat.get_freq(), wordfeat.get_lfreq())
+    print 'Creating list of 10000 best words'
+    w_score_list = metrics.word_score(wordfeat.get_freq(), wordfeat.get_lfreq())
+    best = te.get_nbest_words(w_score_list, 10000)
+    wordfeat.set_freq(best)
+    print wordfeat
+
     #extract features from each comment in training file
     c1 = int(raw_input('How many comments should we feat extract on? '))
     print 'There are ' + str(wordfeat.get_freq().B()) + ' word features.'

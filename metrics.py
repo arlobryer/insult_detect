@@ -18,5 +18,5 @@ def word_score(f_words, label_f_words):
         f_score = BigramAssocMeasures.chi_sq(label_f_words[False][word],
                                             (freq, f_wc), tot_wc)
         word_scores[word] = t_score + f_score
-
     return word_scores
+
