@@ -46,7 +46,7 @@ class features:
 class comment:
     def __init__(self, com, train = None):
         if train == True:
-            self.insult = com[0]
+            self.insult = bool(int(com[0]))
             self.date = make_date(com[1])
             self.content = com[2]
         else:
@@ -59,6 +59,8 @@ class comment:
                'Content: ' + self.content
     def wlist(self):
         return te.get_words(self.content)
+    def is_insult(self):
+        return self.insult
     def get_date(self):
         return self.date
     def get_content(self):
@@ -66,6 +68,6 @@ class comment:
     def get_raw_lc(self):
         return ([w.lower() for w in nltk.word_tokenize(self.get_content())])
     def tokenise(self):
-        return([[self.get_raw_lc(), bool(int(self.insult))]])
+        return([[self.get_raw_lc(), self.insult]])
     def tokenise_com(self):
-        return([[self, bool(int(self.insult))]])
+        return([[self, self.insult]])
