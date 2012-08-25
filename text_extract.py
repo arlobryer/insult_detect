@@ -22,6 +22,10 @@ def get_words(com):
 
 def get_wlist(w_list):
     wordlist = [w[0].lower() for w in w_list]
+    return wordlist
+
+def get_wtype_list(w_list):
+    wordlist = [w[0].lower() for w in w_list]
     w_type_list = nltk.FreqDist(nltk.pos_tag(wordlist))
     return w_type_list
 
