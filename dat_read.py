@@ -37,7 +37,9 @@ class features:
     def get_freq(self):
         return self.freq
     def get_list(self):
-        return list(self.freq)
+        """Return a list ordered in decreasing frequency"""
+        #seems to return the same thing as .samples()
+        return self.freq.keys()
     def get_tlist(self, trunc):
         return self.freq.keys()[0:trunc]
 
