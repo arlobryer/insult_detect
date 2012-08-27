@@ -49,9 +49,9 @@ if __name__ == "__main__":
     # print wordfeat.get_list()
     
     # print metrics.word_score(wordfeat.get_freq(), wordfeat.get_lfreq())
-    n = 12000
-    print 'Creating list of ' + str(n) + ' best words'
+    n = 12500
     w_score_list = metrics.word_score(wordfeat.get_freq(), wordfeat.get_lfreq())
+    print 'Creating list of ' + str(n) + ' best words of ' + str(len(w_score_list))
     best = te.get_nbest_words(w_score_list, n)
     wordfeat.set_freq(best)
     print wordfeat
