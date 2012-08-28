@@ -1,15 +1,18 @@
 import nltk
 import text_extract as te
 import datetime
+import metrics
 
 def comment_feat(tok, w_feat = None):
     raw = tok.get_raw_lc()
     features = {}
+    bigs = metrics.best_bigram_word_feats(raw)
     #make a bag of words
     for w in w_feat:
         features[('contains-word(%s)' %w)] = w in raw
     if tok.date is not None:
         features['hour'] = tok.date[1]
+    features.update(bigs)
     return features
 
 def make_date(da):

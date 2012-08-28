@@ -3,6 +3,7 @@
 # A good description for the general idea can be found at:
 #http://streamhacker.com/2010/06/16/text-classification-sentiment-analysis-eliminate-low-information-features/
 from nltk.metrics import BigramAssocMeasures
+from nltk.collocations import BigramCollocationFinder
 from nltk.probability import FreqDist, ConditionalFreqDist
 
 #Information gain on each word
@@ -20,3 +21,9 @@ def word_score(f_words, label_f_words):
         word_scores[word] = t_score + f_score
     return word_scores
 
+
+def best_bigram_word_feats(words, score_fn = BigramAssocMeasures.chi_sq, n = 10):
+    bigram_finder = BigramCollocationFinder.from_words(words)
+    bigrams = bigram_finder.nbest(score_fn, n)
+    d = dict([(bigram, True) for bigram in bigrams])
+    return d
