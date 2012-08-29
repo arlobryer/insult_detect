@@ -11,6 +11,7 @@ def comment_feat(tok, w_feat = None):
     for w in w_feat:
         features[('contains-word(%s)' %w)] = w in raw
     if tok.date is not None:
+        features['day'] = tok.date[0]
         features['hour'] = tok.date[1]
     features.update(bigs)
     return features
